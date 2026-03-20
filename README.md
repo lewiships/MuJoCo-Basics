@@ -12,6 +12,7 @@ Download the latest version of MuJoCo for your system:
 
 After downloading:
 
+- Extract all
 - Locate the folder called `bin`
 - Inside this folder, find the application called `simulate`
 - Run `simulate`
