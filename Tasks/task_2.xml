@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mujoco model="test_robot">
+<option gravity="0 0 -9.81" density="1.225" viscosity="0.00181" timestep="0.001"/>
+  <worldbody>
+    <light name="light" pos="0 -3 10" dir="0 0.5 -1" diffuse=".8 .8 .8" specular="0.1 0.1 0.1"/>
+
+    <geom name="floor" type="plane" size="10.0 10.0 0.1" pos="0 0 0" rgba="0.8 0.8 1 1" material=""/>
+
+    <body name="limb0" pos="0 0 0" euler="0 0 0">
+      <geom type="capsule" fromto="0 0 0 0 0 0.5" size="0.05" density="1000"/>
+      <site type="sphere" size="0.01" name="limb0_site0" pos="0 0 0.5"/>
+
+      <body name="limb1" pos="0 0 0.5" euler="0 0 0">
+        <geom type="capsule" fromto="0 0 0 0 0 0.4" size="0.04" density="1000"/>
+        <site type="sphere" size="0.01" name="limb1_site0" pos="0 0 0.4"/>
+
+        <body name="limb2" pos="0 0 0.4">
+          <geom type="capsule" fromto="0 0 0 0 0 0.3" size="0.03" density="1000"/>
+          <site type="sphere" size="0.01" name="limb2_site0" pos="0 0 0.3"/>
+
+          <body name="limb3" pos="0 0 0.3">
+            <geom type="capsule" fromto="0 0 0 0 0 0.2" size="0.02" density="1000"/>
+            <joint name="joint_limb2_limb3_0" type="hinge" axis="0 1 0" range="-120 120" damping="0" stiffness="0.0"/>
+          </body>
+
+          <joint name="joint_limb1_limb2_0" type="hinge" axis="0 1 0" range="-120 120" damping="0" stiffness="0.0"/>
+        </body>
+
+        <joint name="joint_0" type="hinge" axis="0 1 0" range="-120 120" damping="0" stiffness="0.0"/>
+      </body>
+
+    </body>
+  </worldbody>
+    <actuator>
+      <motor name="actuator_0" joint="joint_0" gear="1.0" />
+    </actuator>
+</mujoco>
