@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="test_robot_labelled_grid">
+  <option gravity="0 0 -9.81" density="1.225" viscosity="0.00181" timestep="0.001" />
+  <!-- Workshop background: each grid square is 1 arbitrary unit. -->
+  <include file="workshop_assets/labelled_floor.xml" />
+  <worldbody>
+    <light name="light" pos="0 -3 10" dir="0 0.5 -1" diffuse=".8 .8 .8" specular="0.1 0.1 0.1" />
+    <!-- Edit the robot bodies and joints below. -->
+    <body name="limb0" pos="0 0 0" euler="0 0 0">
+      <geom type="capsule" fromto="0 0 0 0 0 0.5" size="0.05" density="1000" />
+      <site type="sphere" size="0.01" name="limb0_site0" pos="0 0 0.5" />
+      <body name="limb1" pos="0 0 0.5" euler="0 0 0">
+        <geom type="capsule" fromto="0 0 0 0 0 0.4" size="0.04" density="1000" />
+        <site type="sphere" size="0.01" name="limb1_site0" pos="0 0 0.4" />
+        <body name="limb2" pos="0 0 0.4">
+          <geom type="capsule" fromto="0 0 0 0 0 0.3" size="0.03" density="1000" />
+          <site type="sphere" size="0.01" name="limb2_site0" pos="0 0 0.3" />
+          <body name="limb3" pos="0 0 0.3">
+            <geom type="capsule" fromto="0 0 0 0 0 0.2" size="0.02" density="1000" />
+            <joint name="joint_limb2_limb3_0" type="hinge" axis="0 1 0" range="-120 120" damping="0" stiffness="0.0" />
+          </body>
+          <joint name="joint_limb1_limb2_0" type="hinge" axis="0 1 0" range="-120 120" damping="0" stiffness="0.0" />
+        </body>
+        <joint name="joint_0" type="hinge" axis="0 1 0" range="-120 120" damping="0" stiffness="0.0" />
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <motor name="actuator_0" joint="joint_0" gear="1.0" />
+  </actuator>
+</mujoco>

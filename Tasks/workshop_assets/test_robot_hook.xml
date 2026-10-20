@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="test_robot_hook">
+  <option gravity="0 0 -9.81" density="1.225" viscosity="0.00181" timestep="0.001" />
+  <!-- Load this test file directly. The original workshop robot is unchanged. -->
+  <include file="workshop_assets/labelled_floor.xml" />
+  <worldbody>
+    <light name="light" pos="0 -3 10" dir="0 0.5 -1" diffuse=".8 .8 .8" specular="0.1 0.1 0.1" />
+    <body name="limb0" pos="0 0 0" euler="0 0 0">
+      <geom type="capsule" fromto="0 0 0 0 0 0.5" size="0.05" density="1000" />
+      <site type="sphere" size="0.01" name="limb0_site0" pos="0 0 0.5" />
+      <body name="limb1" pos="0 0 0.5" euler="0 0 0">
+        <geom type="capsule" fromto="0 0 0 0 0 0.4" size="0.04" density="1000" />
+        <site type="sphere" size="0.01" name="limb1_site0" pos="0 0 0.4" />
+        <body name="limb2" pos="0 0 0.4">
+          <geom type="capsule" fromto="0 0 0 0 0 0.3" size="0.03" density="1000" />
+          <site type="sphere" size="0.01" name="limb2_site0" pos="0 0 0.3" />
+          <body name="limb3" pos="0 0 0.3">
+            <!-- Square section: 0.04 x 0.04, length 0.20 along local Z.
+                 Box sizes are HALF dimensions; pos places the centre. -->
+            <geom name="top_limb" type="box" pos="0 0 0.10"
+                  size="0.02 0.02 0.10" density="1000" />
+            <joint name="joint_limb2_limb3_0" type="hinge" axis="0 1 0" range="-120 120" damping="0" stiffness="0.0" />
+            <!-- One fixed horizontal bar extends from the top of the existing
+                 square limb along +X, at 90 degrees to the limb's Z axis.
+                 Its top is flush with the limb top at local Z=0.20. -->
+            <body name="hook" pos="0 0 0.18">
+              <!-- In limb3 coordinates: X=0.02..0.32, Y=-0.10..0.10,
+                   Z=0.16..0.20. The bar starts at the limb's +X face. -->
+              <geom name="hook_ledge" type="box" pos="0.17 0 0"
+                    size="0.15 0.10 0.02" mass="0.08" rgba="0.90 0.45 0.10 1" />
+            </body>
+          </body>
+          <joint name="joint_limb1_limb2_0" type="hinge" axis="0 1 0" range="-120 120" damping="0" stiffness="0.0" />
+        </body>
+        <joint name="joint_0" type="hinge" axis="0 1 0" range="-120 120" damping="0" stiffness="0.0" />
+      </body>
+    </body>
+    <!-- Movable test cube: 0.08 on each side, with 0.06 clearance on
+         each Y edge. Initially rests on the horizontal bar:
+         limb3 origin Z=1.20 + bar top 0.20 = 1.40.
+         The robot joints remain free to move, so the cube can fall off. -->
+    <body name="test_box" pos="0.17 0 1.44">
+      <freejoint name="test_box_free" />
+      <geom name="test_box_geom" type="box" size="0.04 0.04 0.04"
+            mass="0.00625" rgba="0.10 0.55 0.75 1" />
+    </body>
+  </worldbody>
+  <actuator>
+    <motor name="actuator_0" joint="joint_0" gear="1.0" />
+  </actuator>
+</mujoco>
