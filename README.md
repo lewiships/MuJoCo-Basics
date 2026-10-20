@@ -58,9 +58,6 @@ If you cannot get a working set-up please contact me prior to the session. In th
 
 ---
 
-## Hook Test
-
-Open `Tasks/test_robot_hook.xml` in MuJoCo to try a square top limb with a single horizontal bar extending from its top at 90 degrees. A movable 0.08-unit cube rests on the bar. The hook has no joint of its own and moves with the final limb. Dimensions and attachment are explained in the XML comments.
 
 ## MuJoCo Navigation Tips:
 - Press **Ctrl + L** (Windows) or **Cmd + L** (Mac) to reload the model after editing
